@@ -1,20 +1,103 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "title": "EMS API",
-    "description": "Challenge API",
-    "version": "1.0.0"
-  },
-  "host": "localhost",
-  "basePath": "/v1",
-  "schemes": [
-    "https",
-    "http"
-  ],
-  "paths": {
-
-  },
-  "definitions": {
-
+    "swagger": "2.0",
+    "info": {
+      "title": "EMS API",
+      "description": "Challenge API",
+      "version": "1.0.0"
+    },
+    "host": "localhost",
+    "basePath": "/v1",
+    "schemes": [
+      "https",
+      "http"
+    ],
+    "paths": {
+      "/emails": {
+        "post": {
+          "summary": "Returns a list of users.",
+          "description": "Optional extended description in Markdown.",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "userId",
+              "required": true,
+              "type": "integer",
+              "minimum": 1,
+              "description": "Parameter description in Markdown."
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/HelloWorldResponse"
+              }
+            },
+            "default": {
+              "description": "Error",
+              "schema": {
+                "$ref": "#/definitions/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "/emails/{id}": {
+        "get": {
+          "summary": "Returns a list of users.",
+          "description": "Optional extended description in Markdown.",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "integer",
+              "minimum": 1
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/HelloWorldResponse"
+              }
+            },
+            "default": {
+              "description": "Error",
+              "schema": {
+                "$ref": "#/definitions/ErrorResponse"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "HelloWorldResponse": {
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
   }
-}

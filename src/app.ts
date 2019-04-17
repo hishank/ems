@@ -8,7 +8,7 @@ swaggerJSON.host = `localhost:${PORT}`
 const boom = require('express-boom');
 const bodyParser = require('body-parser');
 const SwaggerExpress = require('swagger-express-mw');
-
+require('./mongoose')
 const handlers = require('./api/controllers');
 
 
@@ -38,9 +38,6 @@ app.listen(PORT, () => {
     console.log(`App listening on port ${PORT} on environment ${app.get('env')}`);
 
 });
-
-
-
 
 export default app;
 
