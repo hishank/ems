@@ -1,17 +1,12 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+import {Schema} from 'mongoose';
 
 /**
 * Email Schema
 */
 
 exports.Email = new Schema({
-    emailRequestId: {
-        type: String,
-        default: null
-    },
     to: {
         type: String,
         default: null

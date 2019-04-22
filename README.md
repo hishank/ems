@@ -2,6 +2,9 @@
 
 #### Getting Started
 ```
-Run - yarn 
-Starting in development - yarn run watch
+ - yarn install
 ```
+#### Running locally and connecting to production data
+ ```
+ - yarn run watch-prod
+ ```

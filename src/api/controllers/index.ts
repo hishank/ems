@@ -1,5 +1,5 @@
 
 
 module.exports = {
-    emails:require('./emails').default
+    emails:require('./email.ctrl').default
 }

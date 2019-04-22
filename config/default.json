@@ -1,5 +1,7 @@
 {
     "PORT" : 2010,
-    "MONGO_URI" : "mongodb://localhost:27017/ems"
+    "MONGO_URI" : "mongodb://localhost:27017/ems",
+    "SENDGRID_API_KEY" : "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",
+    "FROM_EMAIL_ADDRESS" : "test@example.com"
 
 }

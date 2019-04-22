@@ -1,13 +1,13 @@
 'use strict';
 
-const mongoose  = require ('mongoose');
+import * as mongoose from 'mongoose';
 const config = require('config');
 
 
 let MONGO_URI : string = config.MONGO_URI;
 
 
-mongoose.Promise = require('bluebird');
+(<any>mongoose).Promise = require('bluebird');
 mongoose.connect(MONGO_URI, {
 socketTimeoutMS: 0,
 useCreateIndex: true,
