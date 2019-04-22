@@ -8,7 +8,6 @@
   "host": "localhost",
   "basePath": "/v1",
   "schemes": [
-    "https",
     "http"
   ],
   "paths": {
@@ -40,14 +39,32 @@
     },
     "/emails/{id}": {
       "get": {
-        "summary": "Returns a list of users.",
-        "description": "Optional extended description in Markdown.",
+        "summary": "Gets email row by ID",
         "parameters": [{
           "in": "path",
           "name": "id",
           "required": true,
-          "type": "integer",
-          "minimum": 1
+          "type": "string"
+        }],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes email row by ID",
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "type": "string"
         }],
         "produces": [
           "application/json"

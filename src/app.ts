@@ -9,13 +9,13 @@ const swaggerJSON = require('../config/swagger.json');
 swaggerJSON.host = `localhost:${PORT}`
 const boom = require('express-boom');
 const bodyParser = require('body-parser');
-require('./mongoose')
+require('./mongoose');
+require('./scheduler');
 const handlers = require('./api/controllers');
 const swaggerUi = require('swagger-ui-express');
-const {winstonMiddleware} = require ('./api/lib/logging');
-console.log("TCL: winstonMiddleware", winstonMiddleware)
+const {winstonMiddleware,logger} = require ('./api/lib/logging');
 
-app.use(winstonMiddleware)
+app.use(winstonMiddleware);
 app.use(boom());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

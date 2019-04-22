@@ -1,5 +1,6 @@
 
 const config = require('config');
+const {logger} = require ('./logging');
 
 export default class {
     sendGrid: any = null;

@@ -1,20 +1,22 @@
 'use strict'
-const {sendEmail} = require('../services/email.service')
-
+const { sendEmail, findEmailById,deleteEmailById } = require('../services/email.service')
+const { logger } = require('../lib/logging');
 
 /**
  * POST /emails
  * @param req 
  * @param res 
  */
-const postEmail = async(req: any, res: any) => {
-    // console.log("TCL: postEmail -> req", req);
+const postEmail = async (req: any, res: any) => {
+
     try {
-        const {to,content,subject} = req.body;
-        let response = await sendEmail(to,content,subject)
-        return res.send(response)
+        logger.info("TCL: postEmail -> req");
+        const { to, content, subject } = req.body;
+        let response = await sendEmail(to, content, subject)
+        return res.send({ id: response.id, status: response.status });
     } catch (error) {
-		console.log("TCL: postEmail -> error", error)
+        logger.error("TCL: postEmail -> error");
+        logger.error(error);
         return res.boom.badImplementation();
     }
 
@@ -25,9 +27,23 @@ const postEmail = async(req: any, res: any) => {
  * @param req 
  * @param res 
  */
-const getEmailById = (req: any, res: any) => {
-    console.log("TCL: exports.get -> res.boom.", res.boom)
-    return res.boom.unauthorized('noo');
+const getEmailById = async (req: any, res: any) => {
+
+    try {
+        const { id } = req.params;
+        let row = await findEmailById(id);
+        if (!row) {
+            return res.boom.notFound('Id not found')
+        } else {
+            res.send(row);
+        }
+    } catch (error) {
+        logger.error("TCL: getEmailById -> error");
+        logger.error(error)
+        return res.boom.badImplementation();
+    }
+
+
 }
 
 
@@ -36,19 +52,32 @@ const getEmailById = (req: any, res: any) => {
  * @param req 
  * @param res 
  */
-const deleteEmailById = (req: any, res: any) => {
-    console.log("TCL: exports.get -> res.boom.", res.boom)
-    return res.boom.unauthorized('noo');
+const removeEmailById = async (req: any, res: any) => {
+
+    try {
+        const { id } = req.params;
+        let row = await deleteEmailById(id);
+		console.log("TCL: removeEmailById -> row", row)
+        if (!row) {
+            return res.boom.notFound('Id not found')
+        } else {
+            res.send();
+        }
+    } catch (error) {
+        logger.error("TCL: getEmailById -> error");
+        logger.error(error)
+        return res.boom.badImplementation();
+    }
 }
 
 
 
 let exportObj = {               //// for swagger get functions from
-    '{id}': {                  
+    '{id}': {
         '$get': getEmailById,
-        '$delete': deleteEmailById         
+        '$delete': removeEmailById
     },
-    '$post': postEmail,         
- 
+    '$post': postEmail,
+
 }
 export default exportObj
